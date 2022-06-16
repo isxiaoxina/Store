@@ -11,6 +11,13 @@ spring:
 #         这个断言的意思是 如果下面的值成立 才会去到这个路由
           predicates:
             - Query=url,qq
+        - id: product_route
+          uri: lb://store-product  # 目标URL，lb代表从注册中心获取服务，lb是Load Balance的缩写
+          predicates:
+              #只要是api/product的请求就进来
+           - Path=/api/product/**
+          filters:
+           - RewritePath=/api(?<segment>.*), /$\{segment}
 
         - id: admin_route
           uri: lb://renren-fast

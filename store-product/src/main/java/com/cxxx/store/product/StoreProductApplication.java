@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * 2配置
  *   1)配置数据源：
  */
-@EnableDiscoveryClient
+@EnableDiscoveryClient//开启服务注册发现
 @MapperScan("com.cxxx.store.product.dao")
 @SpringBootApplication
 public class StoreProductApplication {

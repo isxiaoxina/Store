@@ -1,6 +1,7 @@
 package com.cxxx.store.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class CategoryController {
     @RequestMapping("/save")
     public R save(@RequestBody CategoryEntity category){
 		categoryService.save(category);
-
+     
         return R.ok();
     }
 
@@ -71,9 +72,21 @@ public class CategoryController {
 
         return R.ok();
     }
+    /**
+     * 批量修改
+     */
+    @RequestMapping("/update/sort")
+    public R updateSort(@RequestBody CategoryEntity[] category){
+
+		categoryService.updateBatchById(Arrays.asList(category));
+
+        return R.ok();
+    }
 
     /**
      * 删除
+     * @RequestBody获取请求体里面的内容，必须发送post请求
+     * springMve
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] catIds){
@@ -81,6 +94,18 @@ public class CategoryController {
 
         return R.ok();
     }
+
+    /**
+     * 批量删除
+     */
+    @RequestMapping("/delete2")
+    public  R removeMenuByIds(List<Long> asList){
+        categoryService.removeMenuByIds(asList);
+
+        return  R.ok();
+    }
+
+
 
     /**
      * 查出所有分类以及子分类 以树形结构组装起来

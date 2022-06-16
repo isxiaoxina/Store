@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -58,7 +59,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return collect;
     }
 
-    //递归查找所有一级菜单的子菜单
+    @Override
+    public void removeMenuByIds(List<Long> asList) {
+           //TODO 检查当前删除的菜单，是不是被别的地方引用
+
+
+
+             baseMapper.deleteBatchIds(asList);
+    }
+
+    //递归查找所有一级菜单的子菜单   root是过滤出来的每一个等于父0的菜单
     private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all) {
         List<CategoryEntity> collect = all.stream().filter(categoryEntity -> {
             //找到自己id和父id匹配的 对象实体 返回
